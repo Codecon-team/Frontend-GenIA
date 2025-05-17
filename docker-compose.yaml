@@ -1,0 +1,8 @@
+name: genIA
+
+services:
+  frontend:
+    container_name: frontend
+    image: blackvsk/genia:front
+    ports:
+      - 80:80
