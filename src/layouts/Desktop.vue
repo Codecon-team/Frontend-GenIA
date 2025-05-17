@@ -1,10 +1,12 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import NavBarComponent from '@/components/NavBarComponent.vue';
 </script>
 <template>
   <span class="bg-blue-circle" />
   <span class="bg-purp-circle" />
   <div class="glass-bg">
+    <NavBarComponent/>
     <RouterView />
   </div>
 </template>
