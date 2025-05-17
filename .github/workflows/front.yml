@@ -8,7 +8,7 @@ on:
         branches: [main]
 
 jobs:
-    CI:
+    setup:
         runs-on: ubuntu-22.04
 
         steps:
@@ -24,3 +24,13 @@ jobs:
 
             - name: instalação de dependencias
               run: npm install
+    
+    CI:
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: build da imagem docker
+              run: docker build -t blackvsk/genia:front .
+
+            - name: push da imagem para o Docker Hub
+              run: docker push blackvsk/genia:front
