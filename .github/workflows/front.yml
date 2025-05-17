@@ -8,7 +8,7 @@ on:
         branches: [main]
 
 jobs:
-    setup:
+    CI:
         runs-on: ubuntu-22.04
 
         steps:
