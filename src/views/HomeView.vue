@@ -11,7 +11,7 @@
       </p>
     </span>
     <div class="container">
-      <span class="glass">
+      <span class="glass-container">
         <div class="upload-container">
           <p>Faça o Upload do Arquivo aqui mano, relaxa que tá seguro!</p>
           <label class="green-btn">
@@ -70,16 +70,6 @@ img {
       display: none;
     }
   }
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(120px);
-  -webkit-backdrop-filter: blur(5px);
-  padding: 1rem;
-  border-radius: 20px;
-  display: block;
-  width: fit-content;
 }
 
 main {
