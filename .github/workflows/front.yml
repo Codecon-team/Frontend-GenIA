@@ -8,7 +8,7 @@ on:
         branches: [main]
 
 jobs:
-    setup:
+    CI:
         runs-on: ubuntu-22.04
 
         steps:
@@ -24,7 +24,13 @@ jobs:
 
             - name: instalação de dependencias
               run: npm install
-    
+
+            - name: login dockerhub
+              uses: docker/login-action@v3.4.0
+              with:
+                username: ${{secrets.DOCKERHUB_USER}}
+                password: ${{secrets.DOCKERHUB_PWD}}
+
             - name: build da imagem docker
               run: docker build -t blackvsk/genia:front .
 
