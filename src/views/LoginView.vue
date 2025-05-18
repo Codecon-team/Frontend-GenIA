@@ -9,13 +9,12 @@ const path = mdiArrowLeft
 
 const email = ref('')
 const senha = ref('')
-const repetirSenha = ref('')
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
+
 function validarForm() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
   erroEmail.value = ''
   erroSenha.value = ''
 
@@ -24,27 +23,17 @@ function validarForm() {
   } else if (!emailRegex.test(email.value)) {
     erroEmail.value = 'Formato de email inválido.'
   }
-
-  if (!senha.value) {
-    erroSenha.value = 'A senha é obrigatória.'
-  } else if (senha.value !== repetirSenha.value) {
-    erroSenha.value = 'As senhas não coincidem!'
-  }
   if (!erroEmail.value && !erroSenha.value) {
     alert('Registrado com sucesso!')
   }
 }
 
-
 const senhaVisivel = ref(false)
-const repetirSenhaVisivel = ref(false)
-
 </script>
 
 <template>
   <main class="login-wrapper">
     <div class="nav-placeholder"></div>
-
     <div class="login-container">
       <div class="login-box">
         <button class="back-button" @click="router.push('/')">
@@ -52,8 +41,8 @@ const repetirSenhaVisivel = ref(false)
           Go back
         </button>
 
-        <h1>Registro</h1>
-        <p class="subtitle">Não que eu ligue, mas põe teus dados aí:</p>
+        <h1>Login</h1>
+        <p class="subtitle">Tá aqui de volta pra que?! Entra logo</p>
 
         <form class="form" @submit.prevent="validarForm">
           <label for="email">email:</label>
@@ -66,7 +55,7 @@ const repetirSenhaVisivel = ref(false)
 
           <label for="senha">senha:</label>
           <div class="senha-wrapper">
-             <input
+            <input
               id="senha"
               v-model="senha"
               class="input-senha"
@@ -78,23 +67,6 @@ const repetirSenhaVisivel = ref(false)
             </button>
             <button type="button" class="senha-reset" @click="senha = ''">↺</button>
           </div>
-          <label for="repetir">repetir senha:</label>
-          <div class="senha-wrapper">
-            <input
-              id="repetir"
-              v-model="repetirSenha"
-              class="input-senha"
-              :type="repetirSenhaVisivel ? 'text' : 'password'"
-              placeholder="digita de novo aí"
-            />
-            <button type="button" class="senha-toggle" @click="repetirSenhaVisivel = !repetirSenhaVisivel">
-              {{ repetirSenhaVisivel ? '🙈' : '👁️' }}
-            </button>
-            <button type="button" class="senha-reset" @click="repetirSenha = ''">↺</button>
-          </div>
-
-          <p v-if="erroSenha" class="erro">{{ erroSenha }}</p>
-
           <div class="toggle-row">
             <label class="switch">
               <input type="checkbox" v-model="lembrar" />
@@ -104,6 +76,7 @@ const repetirSenhaVisivel = ref(false)
           </div>
 
           <button type="submit" class="register-btn">Registrar</button>
+          <button class="login-btn" @click="router.push('/login')">Já esteve aqui antes?</button>
         </form>
 
         <div class="social-buttons">
@@ -132,6 +105,7 @@ const repetirSenhaVisivel = ref(false)
             teria coragem de dizer.
           </div>
         </div>
+
         <div class="decor-square"></div>
         <div class="decor-square2"></div>
         <div class="decor-square3"></div>
@@ -153,8 +127,9 @@ const repetirSenhaVisivel = ref(false)
   padding: 0;
   margin: 0;
 }
+
 .nav-placeholder {
-  height: 8vh;
+  height: 3vh;
   width: 100%;
 }
 
@@ -178,6 +153,7 @@ const repetirSenhaVisivel = ref(false)
   background-color: white;
   padding: 2vw;
 }
+
 .senha-wrapper {
   position: relative;
   width: 100%;
@@ -206,6 +182,7 @@ const repetirSenhaVisivel = ref(false)
 .senha-reset {
   right: 0.5vw;
 }
+
 .input-senha {
   padding: 1vh;
   border: 0.02vw solid #1a5d46;
@@ -213,8 +190,6 @@ const repetirSenhaVisivel = ref(false)
   font-size: 0.95vw;
   color: #333;
 }
-
-
 
 .side-box {
   flex: 1;
@@ -232,60 +207,13 @@ const repetirSenhaVisivel = ref(false)
   box-shadow: 0 0 1vw rgba(0, 0, 0, 0.1);
   position: relative;
 }
-.decor-square {
-  position: absolute;
-  top: 2vw;      
-  right: 11vw;    
-  width: 4vw;
-  height: 4vw;
-  background-color: rgba(180, 180, 180, 0.5);
-  border-radius: 0.5vw;
-  border: 0.1vw solid #ffffff;
-  z-index: 10;
-  pointer-events: none;
-}
-.decor-square2 {
-  position: absolute;
-  top: 7vw;      
-  right: 5vw;    
-  width: 6vw;
-  height: 6vw;
-  background-color: rgba(180, 180, 180, 0.5);
-  border-radius: 0.5vw;
-  border: 0.1vw solid #ffffff;
-  z-index: 10;
-  pointer-events: none;
-}
-.decor-square3 {
-  position: absolute;
-  top: 31.5vw;      
-  right: 8vw;    
-  width: 4vw;
-  height: 4vw;
-  background-color: rgba(180, 180, 180, 0.5);
-  border-radius: 0.5vw;
-  border: 0.1vw solid #ffffff;
-  z-index: 10;
-  pointer-events: none;
-}
-.decor-square4 {
-  position: absolute;
-  top: 22vw;      
-  right: 34vw;    
-  width: 5vw;
-  height: 5vw;
-  background-color: rgba(180, 180, 180, 0.5);
-  border-radius: 0.5vw;
-  border: 0.1vw solid #ffffff;
-  z-index: 10;
-  pointer-events: none;
-}
+
+.decor-square,
+.decor-square2,
+.decor-square3,
+.decor-square4,
 .decor-square5 {
   position: absolute;
-  top: 21vw;      
-  right: 38vw;    
-  width: 2vw;
-  height: 2vw;
   background-color: rgba(180, 180, 180, 0.5);
   border-radius: 0.5vw;
   border: 0.1vw solid #ffffff;
@@ -293,6 +221,40 @@ const repetirSenhaVisivel = ref(false)
   pointer-events: none;
 }
 
+.decor-square {
+  top: 2vw;
+  right: 11vw;
+  width: 4vw;
+  height: 4vw;
+}
+
+.decor-square2 {
+  top: 7vw;
+  right: 5vw;
+  width: 6vw;
+  height: 6vw;
+}
+
+.decor-square3 {
+  top: 31.5vw;
+  right: 8vw;
+  width: 4vw;
+  height: 4vw;
+}
+
+.decor-square4 {
+  top: 22vw;
+  right: 34vw;
+  width: 5vw;
+  height: 5vw;
+}
+
+.decor-square5 {
+  top: 21vw;
+  right: 38vw;
+  width: 2vw;
+  height: 2vw;
+}
 
 .overlay-box {
   background-color: rgba(255, 255, 255, 0.9);
@@ -304,8 +266,8 @@ const repetirSenhaVisivel = ref(false)
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  width: 50%; /* Ocupa o espaço da .side-box */
-  max-width: 40vw; /* Controla o limite pra não exagerar */
+  width: 50%;
+  max-width: 40vw;
   height: auto;
   z-index: 1;
 }
@@ -316,7 +278,14 @@ const repetirSenhaVisivel = ref(false)
   margin-bottom: 1vh;
   align-self: center;
 }
-start .overlay-box hr {
+
+.overlay-box p {
+  font-size: 0.9vw;
+  color: #1a5d46;
+  text-align: center;
+}
+
+.overlay-box hr {
   border: none;
   height: 0.1vh;
   background-color: #1a5d46;
@@ -325,7 +294,7 @@ start .overlay-box hr {
 
 .msn1,
 .msn3 {
-  align-self: flex-start; /* alinha à esquerda */
+  align-self: flex-start;
   background-color: #1a5d46;
   color: white;
   padding: 1vh;
@@ -333,8 +302,9 @@ start .overlay-box hr {
   max-width: 18vw;
   font-size: 0.9vw;
 }
+
 .msn2 {
-  align-self: flex-end; /* alinha à direita */
+  align-self: flex-end;
   background-color: #1cac7a;
   color: white;
   padding: 1vh;
@@ -342,6 +312,7 @@ start .overlay-box hr {
   max-width: 18vw;
   font-size: 0.9vw;
 }
+
 .back-button {
   background: none;
   border: none;
@@ -382,6 +353,7 @@ form.form {
   max-width: 30vw;
   align-items: flex-start;
 }
+
 label {
   font-size: 1.1vw;
   color: #1a5d46;
@@ -418,9 +390,18 @@ input::placeholder {
   border-radius: 0.3vw;
   cursor: pointer;
   width: 100%;
-  max-width: 10vw;
+  max-width: 15vw;
   align-self: center;
   margin-top: 2vh;
+}
+.login-btn {
+  background-color: transparent;
+  border: none;
+  color: #1a5d46;
+  font-size: 0.9vw;
+  cursor: pointer;
+  margin-top: 1vh;
+  align-self: center;
 }
 
 .switch {
@@ -484,7 +465,6 @@ input::placeholder {
   border-radius: 0.3vw;
   cursor: pointer;
   font-size: 0.9vw;
-  margin-bottom: 0vh;
 }
 
 .social.google img {
