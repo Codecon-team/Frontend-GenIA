@@ -3,36 +3,54 @@ import { ref } from 'vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user';
 
+const userStore = useUserStore()
 const router = useRouter()
 const path = mdiArrowLeft
 
-const email = ref('')
-const senha = ref('')
-const repetirSenha = ref('')
+const user = ref({
+    username: "teste",
+    email: "limateste@gabigol.com",
+    password: "pedroguilherme"
+})
+
+
+const repetirSenha = ref('pedroguilherme')
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-function validarForm() {
+async function validarForm() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   erroEmail.value = ''
   erroSenha.value = ''
 
-  if (!email.value) {
+  if (!user.value.email) {
     erroEmail.value = 'O email é obrigatório.'
-  } else if (!emailRegex.test(email.value)) {
+  } else if (!emailRegex.test(user.value.email)) {
     erroEmail.value = 'Formato de email inválido.'
   }
 
-  if (!senha.value) {
+  if (!user.value.password) {
     erroSenha.value = 'A senha é obrigatória.'
-  } else if (senha.value !== repetirSenha.value) {
+  } else if (user.value.password !== repetirSenha.value) {
     erroSenha.value = 'As senhas não coincidem!'
   }
 
   if (!erroEmail.value && !erroSenha.value) {
-    alert('Registrado com sucesso!')
+    // Se a validação do formulário passou, tenta registrar o usuário
+    try {
+      const response = await userStore.registerUser(user.value);
+      if (response) {
+        alert('Registrado com sucesso! Redirecionando para a tela de login.');
+        router.push('/login');
+      }
+    } catch (error) {
+      console.error('Erro no registro:', error);
+      alert('Erro ao registrar o usuário. Por favor, tente novamente.');
+      // Aqui você pode adicionar lógica para exibir mensagens de erro específicas do backend, se necessário.
+    }
   }
 }
 
@@ -57,16 +75,17 @@ const repetirSenhaVisivel = ref(false)
           <label for="email">email:</label>
           <input
             id="email"
-            v-model="email"
+            v-model="user.email"
             type="email"
             placeholder="não venha por jorginho123@hotmail.com"
           />
+          <p v-if="erroEmail" class="erro">{{ erroEmail }}</p>
 
           <label for="senha">senha:</label>
           <div class="senha-wrapper">
             <input
               id="senha"
-              v-model="senha"
+              v-model="user.password"
               class="input-senha"
               :type="senhaVisivel ? 'text' : 'password'"
               placeholder="#@%&@&~$"
@@ -142,7 +161,6 @@ const repetirSenhaVisivel = ref(false)
     </div>
   </main>
 </template>
-
 <style scoped>
 .login-wrapper {
   height: 100vh;

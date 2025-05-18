@@ -11,78 +11,93 @@ export const useUserStore = defineStore('user', () => {
     loading: false,
     isLogged: useStorage('isLogged', false),
   })
+
   const isLoading = computed(() => state.loading)
   const isLogged = computed(() => state.isLogged)
+  const token = computed(() => state.token)
 
+  // Métodos auxiliares públicos
   const setToken = (newToken) => {
     state.token = newToken
   }
 
-  const loginUser = async (user) => {
+  const setLogged = (value) => {
+    state.isLogged = value
+  }
+
+  const clearToken = () => {
     state.token = ''
     state.isLogged = false
+  }
+
+  const loginUser = async (user) => {
+    clearToken()
     state.loading = true
     try {
       const response = await userService.loginUser(user)
-      console.log('response:', response)
       setToken(response.accessToken)
-      state.isLogged = true
+      setLogged(true)
       return response
     } catch (error) {
       console.error('Erro no login:', error)
-      state.isLogged = false
-      state.token = ''
+      clearToken()
     } finally {
       state.loading = false
     }
   }
 
   const registerUser = async (user) => {
-    state.token = ''
-    state.isLogged = false
+    clearToken()
     state.loading = true
     try {
       const response = await userService.registerUser(user)
-      console.log('response:', response)
       return response
     } catch (error) {
-      console.error('Erro no login:', error)
-      state.isLogged = false
-      state.token = ''
+      console.error('Erro no registro:', error)
+      clearToken()
     } finally {
       state.loading = false
     }
   }
 
   const updateUser = async (user) => {
-  state.loading = true
-  try {
-    const response = await userService.updateUser(user)
-    console.log('Usuário atualizado:', response)
-    return response
-  } catch (error) {
-    console.error('Erro ao atualizar usuário:', error)
-    // Aqui você pode adicionar lógica para lidar com erros específicos
-  } finally {
-    state.loading = false
-  }
+    state.loading = true
+    try {
+      const response = await userService.updateUser(user)
+      return response
+    } catch (error) {
+      console.error('Erro ao atualizar usuário:', error)
+    } finally {
+      state.loading = false
+    }
   }
 
   const getMeUser = async () => {
-  state.loading = true
-  try {
-    const response = await userService.getMeUser()
-    console.log('getMeUser:', response)
-    return response
-  } catch (error) {
-    console.error('Erro ao getMeUser:', error)
-  } finally {
-    state.loading = false
-  }
+    state.loading = true
+    try {
+      const response = await userService.getMeUser()
+      return response
+    } catch (error) {
+      console.error('Erro ao buscar usuário:', error)
+    } finally {
+      state.loading = false
+    }
   }
 
-  return { loginUser, registerUser, updateUser, getMeUser, isLoading, isLogged }
+  return {
+    loginUser,
+    registerUser,
+    updateUser,
+    getMeUser,
+    isLoading,
+    isLogged,
+    token,
+    setToken,
+    setLogged,
+    clearToken
+  }
 })
+
 
 // import { useUserStore } from './stores/user';
 // import { reactive } from 'vue';
