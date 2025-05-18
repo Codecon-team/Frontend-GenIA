@@ -20,9 +20,8 @@
   font-size: 20px;
 }
 
-button,
-p {
-  font-size: 18px;
+button{
+  cursor: pointer;
 }
 
 .glass-container {
