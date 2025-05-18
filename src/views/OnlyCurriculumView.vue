@@ -131,13 +131,11 @@ progress {
 
 progress::-webkit-progress-bar {
   background-color: #ffffff;
-
   border-radius: 7px;
 }
 
 progress::-webkit-progress-value {
   background-color: #1a5d46;
-
   border-radius: 7px 0 0 7px;
 }
 
@@ -161,7 +159,6 @@ input {
 
 main > div {
   background-color: #d9d9d959;
-
   padding: 3vh 2vw;
 }
 
