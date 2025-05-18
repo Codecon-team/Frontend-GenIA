@@ -31,6 +31,7 @@ onMounted(async () => {
       cpf: userStore.user.cpf || ''
     }
   }
+  console.log(userStore.user)
   await loadResumes()
 })
 
@@ -91,6 +92,18 @@ function toggleResumeDetails(resume) {
     router.push(`/resume/${resume.id}`)
   }
 }
+
+
+function isUserPremium(user) {
+  return user.subscriptions?.some(subscription =>
+    subscription.status === 'active' &&
+    subscription.plan?.slug !== 'basic'
+  );
+}
+
+defineExpose({
+  isUserPremium
+});
 </script>
 
 <template>
@@ -113,7 +126,8 @@ function toggleResumeDetails(resume) {
             </div>
             <div class="status-badge">
               <span class="badge-label">Status:</span>
-              <span class="badge">{{ userStore.user?.stripe_customer_id ? 'Premium' : 'Gratuito' }}</span>
+              <span class="badge">  {{ isUserPremium(userStore.user) ? 'Premium' : 'Gratuito' }}
+              </span>
             </div>
             <div class="status-badge">
               <span class="badge-label">Email:</span>
@@ -122,10 +136,9 @@ function toggleResumeDetails(resume) {
           </div>
           <div class="premium-section">
             <p class="plan-status">
-              {{ userStore.user?.stripe_customer_id ? '🤴 Plano Patrão' : '👨‍🌾 Plano Camponês' }}
-            </p>
+              {{ isUserPremium(userStore.user) ? '🤴 Plano Patrão' : '👨‍🌾 Plano Camponês' }}            </p>
             <button
-              v-if="!userStore.user?.stripe_customer_id"
+              v-if="!isUserPremium(userStore.user)"
               class="upgrade-btn"
               @click="router.push('/premium')"
             >
@@ -134,7 +147,6 @@ function toggleResumeDetails(resume) {
           </div>
         </div>
 
-        <!-- Formulário de Perfil -->
         <div class="profile-form glass-container">
           <h2>Informações Pessoais</h2>
           <div class="form-grid">

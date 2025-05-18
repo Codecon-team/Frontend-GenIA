@@ -1,4 +1,4 @@
-<script setup>
+'<script setup>
 import { useUserStore } from '@/stores/user'
 import { onMounted, ref } from 'vue'
 import ResumeService from '@/services/resume'
@@ -90,6 +90,18 @@ function toggleResumeDetails(resume) {
     router.push(`/resume/${resume.id}`)
   }
 }
+
+
+function isUserPremium(user) {
+  return user.subscriptions?.some(subscription =>
+    subscription.status === 'active' &&
+    subscription.plan?.slug !== 'basic'
+  );
+}
+
+defineExpose({
+  isUserPremium
+});
 </script>
 
 <template>
@@ -103,16 +115,16 @@ function toggleResumeDetails(resume) {
         </div>
         <div class="glass-container">
           <h1>Tipo: {{ userStore.user?.role === 'candidate' ? 'Candidato' : 'Usuário' }}</h1>
-          <p>Status: {{ userStore.user?.stripe_customer_id ? 'Premium' : 'Gratuito' }}</p>
+          <p>Status:  {{ isUserPremium(userStore.user) ? 'Premium' : 'Gratuito' }}</p>
           <p>Email verificado: {{ userStore.user?.email_verified_at ? 'Sim' : 'Não' }}</p>
           <div class="premium-section">
             <p class="plan-status">
-              {{ userStore.user?.stripe_customer_id ? '🤴 Plano Patrão' : '👨‍🌾 Plano Camponês' }}
+              {{ isUserPremium(userStore.user) ? '🤴 Plano Patrão' : '👨‍🌾 Plano Camponês' }}
             </p>
             <button
               class="green-btn upgrade-btn"
               @click="router.push('/premium')"
-              v-if="!userStore.user?.stripe_customer_id"
+              v-if="!isUserPremium(userStore.user)"
             >
               Fazer Upgrade
             </button>
@@ -524,4 +536,69 @@ main {
   background-color: #154835;
   transform: translateY(-1px);
 }
+
+@media screen and (max-width: 768px) {
+  main {
+    padding: 4vh 4vw;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user {
+    width: 100%;
+    gap: 4vh;
+  }
+
+  .info-user {
+    flex-direction: column;
+    gap: 3vh;
+    height: auto;
+  }
+
+  .bottom-container {
+    flex-direction: column;
+    gap: 4vh;
+  }
+
+  .user-form {
+    width: 100%;
+    padding: 4vh 5vw;
+  }
+
+  .upload-cv {
+    width: 100%;
+    height: auto;
+    padding: 3vh 5vw;
+  }
+
+  .curriculums-container {
+    width: 100%;
+    max-height: none;
+    padding: 4vh 5vw;
+  }
+
+  .upgrade-btn {
+    width: 80%;
+  }
+
+  .score {
+    font-size: 1rem;
+    padding: 0.4vh 0.8vw;
+  }
+
+  .resume-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1vh;
+  }
+
+  .curriculum-card {
+    padding: 4vh 4vw;
+  }
+
+  .resume-details {
+    padding: 2vh 0;
+  }
+}
 </style>
+'

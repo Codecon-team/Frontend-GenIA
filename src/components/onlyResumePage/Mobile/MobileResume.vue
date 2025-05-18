@@ -12,7 +12,7 @@ const id = route.params.id
 const pontuacao = ref(0)
 const resumo = ref('')
 const nomeIndividuo = ref('[Nome do individuo]')
-const areaIndividuo = ref('[Área do individuo]')
+const areaIndividuo = ref('')
 const pontosFortes = ref()
 const pontosFracos = ref()
 const loading = ref(false)
@@ -80,15 +80,16 @@ async function fetchResume() {
         </div>
         <progress :value="pontuacao" max="100" />
       </div>
+      <router-link>
+
       <label class="green-btn">
-        Upload
-        <input type="file" id="file" name="file" />
+        Voltar
       </label>
+      </router-link>
     </span>
     <div class="info glass-container">
       <span class="title-container">
         <h1>{{ nomeIndividuo }}</h1>
-        <h2>{{ areaIndividuo }}</h2>
       </span>
       <h3>Resumo:</h3>
       <p>{{ resumo }}</p>
@@ -180,4 +181,54 @@ main span .glass-container:first-of-type {
   height: 100%;
   gap: 1vh;
 }
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+    padding: 5vh 5vw;
+  }
+
+  main span {
+    width: 100%;
+    gap: 2vh;
+  }
+
+  main span .glass-container {
+    width: 100%;
+  }
+
+  .info {
+    width: 100%;
+    height: auto;
+    padding: 4vh 4vw;
+  }
+
+  .progress-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1vh;
+    font-size: 18px;
+  }
+
+  .title-container h1 {
+    font-size: 24px;
+  }
+
+  .title-container h2 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  label.green-btn {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-top: 2vh;
+  }
+}
+
 </style>
