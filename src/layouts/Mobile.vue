@@ -1,13 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { RouterView } from 'vue-router'
-import DesktopNav from '@/components/navBar/Desktop/DesktopNav.vue';
+import MobileNav from '@/components/navBar/Mobile/MobileNav.vue';
 </script>
 <template>
   <span class="bg-blue-circle" />
   <span class="bg-purp-circle" />
   <div class="glass-bg">
-    <DesktopNav/>
+    <MobileNav/>
     <RouterView />
   </div>
 </template>
@@ -46,3 +46,4 @@ import DesktopNav from '@/components/navBar/Desktop/DesktopNav.vue';
   display: block;
 }
 </style>
+

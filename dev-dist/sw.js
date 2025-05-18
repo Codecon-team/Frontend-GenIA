@@ -97,6 +97,7 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "revision": "0.itiu2bvr2f"
 =======
     "revision": "0.a7pv010q4dg"
@@ -113,6 +114,9 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "revision": "0.itiu2bvr2f"
 >>>>>>> bdf94b4 (CHORE: atualização main css)
 >>>>>>> 205e636 (CHORE: atualização main css)
+=======
+    "revision": "0.itiu2bvr2f"
+>>>>>>> 9f4271d (style: deixando responsivo as telas)
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {

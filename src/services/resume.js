@@ -1,11 +1,11 @@
-import api from '@/plugins/api'
+import axios from "axios"
 
 class ResumeService {
   async analyzeResume(file) {
     try {
       const formData = new FormData()
       formData.append('resume', file)
-      const response = await api.post('resumes/analyze', formData, {
+      const response = await axios.post('resumes/analyze', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -19,7 +19,7 @@ class ResumeService {
   }
   async getResumeAnalyze() {
     try {
-      const response = await api.get('resumes/')
+      const response = await axios.get('resumes/')
       return response.data
     } catch (error) {
       console.log('getResumeAnalyze error:', error)
@@ -28,7 +28,7 @@ class ResumeService {
   }
   async getOneResumeAnalyze(id) {
     try {
-      const response = await api.get(`resumes/${id}`)
+      const response = await axios.get(`resumes/${id}`)
       return response.data
     } catch (error) {
       console.log('getResumeAnalyze error:', error)

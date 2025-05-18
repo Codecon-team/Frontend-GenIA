@@ -1,10 +1,9 @@
-import api from "@/plugins/api";
-
+import axios from "axios"
 
 class UserService {
     async loginUser(user) {
         try {
-            const response = await api.post("users/login", user)
+            const response = await axios.post("users/login", user)
             return response.data
         }
         catch (error) {
@@ -14,7 +13,7 @@ class UserService {
     }
     async registerUser(user) {
         try {
-            const response = await api.post("users/", user)
+            const response = await axios.post("users/", user)
             return response.data
         }
         catch (error) {
@@ -24,7 +23,7 @@ class UserService {
     }
     async updateUser(userInfo){
         try {
-            const response = await api.put("users/", userInfo)
+            const response = await axios.put("users/", userInfo)
             return response.data
         }
         catch (error) {
@@ -34,7 +33,7 @@ class UserService {
     }
     async getMeUser(){
         try {
-            const response = await api.get("users/me", )
+            const response = await axios.get("users/me", )
             return response.data
         }
         catch (error) {

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+const paymentStore = usePaymentStore()
 const qrCodeUrl = ref(null)
 const loading = ref(true)
 const timer = ref(60)
@@ -37,7 +38,6 @@ const gerarQRCode = async () => {
 }
 
 onMounted(() => {
-  gerarQRCode()
 })
 </script>
 
