@@ -1,71 +1,74 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useResumeStore } from '@/stores/resume'
-import { useUserStore } from '@/stores/user'
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { useResumeStore } from "@/stores/resume";
+import { useUserStore } from "@/stores/user";
 
-const userStore = useUserStore()
-const route = useRoute()
-const resumeStore = useResumeStore()
-const id = route.params.id
+const userStore = useUserStore();
+const route = useRoute();
+const resumeStore = useResumeStore();
+const id = route.params.id;
 
-const pontuacao = ref(0)
-const resumo = ref('')
-const nomeIndividuo = ref('[Nome do individuo]')
-const areaIndividuo = ref('[Área do individuo]')
-const pontosFortes = ref()
-const pontosFracos = ref()
-const loading = ref(false)
-const error = ref(null)
-const user = ref()
+const pontuacao = ref(0);
+const resumo = ref("");
+const nomeIndividuo = ref("[Nome do individuo]");
+const areaIndividuo = ref("[Área do individuo]");
+const pontosFortes = ref();
+const pontosFracos = ref();
+const loading = ref(false);
+const error = ref(null);
+const user = ref();
 
 onMounted(async () => {
-  user.value = await userStore.getMeUser()
-  await fetchResume()
-})
+  user.value = await userStore.getMeUser();
+  await fetchResume();
+});
 
 async function fetchResume() {
-  loading.value = true
-  error.value = null
+  loading.value = true;
+  error.value = null;
   try {
     const response = await resumeStore.getOneResumeAnalyze(id)
     if (response) {
-      pontuacao.value = response.resume.analyses[0].score || 0
-      resumo.value = response.resume.analyses[0].funny_comment || 'Nenhum resumo encontrado.'
-      nomeIndividuo.value = user.value?.username || '[Nome não encontrado]'
-      areaIndividuo.value = response.area || '[Área não encontrada]'
+      pontuacao.value = response.resume.analyses[0].score || 0;
+      resumo.value =
+        response.resume.analyses[0].funny_comment || "Nenhum resumo encontrado.";
+      nomeIndividuo.value = user.value?.username || "[Nome não encontrado]";
+      areaIndividuo.value = response.area || "[Área não encontrada]";
 
-      const strengths = response.resume.analyses[0].strengths || ''
-      const weaks = response.resume.analyses[0].weaknesses || ''
+      const strengths = response.resume.analyses[0].strengths || "";
+      const weaks = response.resume.analyses[0].weaknesses || "";
 
-      pontosFortes.value = strengths.split(',').map((p) => p.trim())
-      pontosFracos.value = weaks.split(',').map((p) => p.trim())
+      pontosFortes.value = strengths.split(",").map((p) => p.trim());
+      pontosFracos.value = weaks.split(",").map((p) => p.trim());
     } else {
-      error.value = 'Currículo não encontrado.'
+      error.value = "Currículo não encontrado.";
     }
   } catch (err) {
-    console.error('Erro ao buscar o currículo:', err)
-    error.value = 'Erro ao buscar o currículo. Tente novamente.'
+    console.error("Erro ao buscar o currículo:", err);
+    error.value = "Erro ao buscar o currículo. Tente novamente.";
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
-
 </script>
 
 <template>
   <main v-if="!loading && !error">
     <span>
-      <div class="glass-container">
+      <div class="glass-container padding-box">
         <p>💥 Pontos Negativos</p>
         <ul>
-          <li v-for="(ponto, index) in pontosFracos?.slice(0,5)" :key="index">{{ ponto }}</li>
+          <li v-for="(ponto, index) in pontosFracos?.slice(0, 5)" :key="index">
+            {{ ponto }}
+          </li>
         </ul>
         <p>🤏 Ponto Positivos</p>
         <ul>
-          <li v-for="(ponto, index) in pontosFortes?.slice(0,5)" :key="index">{{ ponto }}</li>
+          <li v-for="(ponto, index) in pontosFortes?.slice(0, 5)" :key="index">
+            {{ ponto }}
+          </li>
         </ul>
-
       </div>
       <div class="glass-container">
         <div class="progress-text">
@@ -79,15 +82,13 @@ async function fetchResume() {
         </div>
         <progress :value="pontuacao" max="100" />
       </div>
-      <label class="green-btn">
-        Upload
-        <input type="file" id="file" name="file" />
-      </label>
+      <router-link class="green-btn">
+        <label class="text-center"> Voltar </label>
+      </router-link>
     </span>
     <div class="info glass-container">
       <span class="title-container">
         <h1>{{ nomeIndividuo }}</h1>
-        <h2>{{ areaIndividuo }}</h2>
       </span>
       <h3>Resumo:</h3>
       <p>{{ resumo }}</p>
@@ -99,11 +100,12 @@ async function fetchResume() {
 
 <style scoped>
 .info {
-  width: 64vw;
-  height: 63vh;
+  flex: 1 1 60%;
+  min-width: 300px;
+  max-width: 64vw;
+  height: auto;
   padding: 5vh 3vw;
 }
-
 p {
   font-size: 20px;
   text-align: justify;
@@ -138,6 +140,10 @@ progress::-webkit-progress-value {
   font-weight: 700;
 }
 
+.text-center{
+  text-align: center;
+}
+
 label {
   text-align: center;
 }
@@ -166,8 +172,12 @@ main span {
 main span .glass-container {
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 25vw;
   background-color: #d9d9d959;
+}
+
+ul{
+  margin-left: 4vh;
 }
 
 main span .glass-container p {
