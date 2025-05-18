@@ -13,6 +13,7 @@
   "dependencies": {
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/js": "^7.4.47",
+    "@vueuse/core": "^13.2.0",
     "axios": "^1.9.0",
     "pinia": "^3.0.1",
     "vite-plugin-pwa": "^1.0.0",
