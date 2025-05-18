@@ -29,10 +29,15 @@ const router = createRouter({
           component: () => import('@/views/PremiumView.vue'),
         },
         {
-          path: '/pix',
-          name: 'pix',
+          path: '/formpix',
+          name: 'formpix',
           component: () => import('@/views/PixView.vue'),
         },
+        {
+          path: '/pagamento',
+          name: 'pagamento',
+          component: () => import('@/views/PagamentoView.vue'),
+        }
       ],
     },
   ],
