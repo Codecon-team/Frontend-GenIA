@@ -12,6 +12,14 @@ const router = createRouter({
           path: '/',
           name: 'home',
           component: () => import('@/views/HomeView.vue'),
+          beforeEnter: (to, from, next) => {
+            const token = localStorage.getItem('authToken')
+            if (token) {
+              next('/dashboard')
+            } else {
+              next()
+            }
+          }
         },
         {
           path: '/register',

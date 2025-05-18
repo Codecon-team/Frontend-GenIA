@@ -4,6 +4,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user';
+import { notify } from '@/utils/notifications'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -18,30 +19,62 @@ const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-async function handleLogin() {
+const validateForm = () => {
+  console.log('Valores do formulário:', {
+    email: user.value.email,
+    password: user.value.password,
+    emailLength: user.value.email?.length,
+    passwordLength: user.value.password?.length
+  })
+
+  // Verifica se os campos existem e não estão vazios após trim
+  const emailValid = user.value.email?.trim()
+  const passwordValid = user.value.password?.trim()
+
+  console.log('Validação dos campos:', {
+    emailValid: !!emailValid,
+    passwordValid: !!passwordValid
+  })
+
+  if (!emailValid || !passwordValid) {
+    const camposFaltantes = []
+    if (!emailValid) camposFaltantes.push('email')
+    if (!passwordValid) camposFaltantes.push('senha')
+
+    notify.warning(`Por favor, preencha os seguintes campos: ${camposFaltantes.join(', ')}`)
+    return false
+  }
+
+  return true
+}
+
+const handleSubmit = async () => {
+  console.log('Iniciando submit do formulário')
+
+  if (!validateForm()) {
+    console.log('Validação falhou')
+    return
+  }
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   erroEmail.value = ''
   erroSenha.value = ''
 
-  if (!user.value.email) {
-    erroEmail.value = 'O email é obrigatório.'
-    return
-  } else if (!emailRegex.test(user.value.email)) {
+  if (!emailRegex.test(user.value.email)) {
     erroEmail.value = 'Formato de email inválido.'
     return
   }
+
   try {
-    console.log("Função de login foi chamada");
-    const response = await userStore.loginUser(user.value)
-
-    if (response) {
-      alert('Login efetuado com sucesso. Redirecionando para a página de home.')
-    }
+    console.log("Função de login foi chamada com:", {
+      email: user.value.email,
+      password: user.value.password?.length // Não logamos a senha real por segurança
+    });
+    await userStore.loginUser(user.value)
     router.push('/dashboard')
-
   } catch (error) {
     console.error('Erro no login:', error)
-    alert('Erro no login. Verifique suas credenciais.')
+    notify.error('Erro no login. Verifique suas credenciais.')
   }
 }
 
@@ -61,13 +94,14 @@ const senhaVisivel = ref(false)
         <h1>Login</h1>
         <p class="subtitle">Tá aqui de volta pra que?! Entra logo</p>
 
-        <form class="form" @submit.prevent="handleLogin()">
+        <form class="form" @submit.prevent="handleSubmit()">
           <label for="email">email:</label>
           <input
             id="email"
             v-model="user.email"
             type="email"
             placeholder="não venha por jorginho123@hotmail.com"
+            @input="e => console.log('Email input:', e.target.value)"
           />
 
           <label for="senha">senha:</label>
@@ -78,6 +112,7 @@ const senhaVisivel = ref(false)
               class="input-senha"
               :type="senhaVisivel ? 'text' : 'password'"
               placeholder="#@%&@&~$"
+              @input="e => console.log('Senha input:', e.target.value?.length)"
             />
             <button type="button" class="senha-toggle" @click="senhaVisivel = !senhaVisivel">
               {{ senhaVisivel ? '🙈' : '👁️' }}
@@ -113,7 +148,7 @@ const senhaVisivel = ref(false)
             A inteligência artificial que lê seu currículo... e te julga sem piedade.
           </div>
           <div class="msn2">
-            Ela vai além da análise técnica: satiriza suas experiências, destaca suas “conquistas”
+            Ela vai além da análise técnica: satiriza suas experiências, destaca suas "conquistas"
             com ironia, e te coloca num ranking implacável. Nada escapa — nem aquele curso de 4h que
             você colocou como formação.
           </div>

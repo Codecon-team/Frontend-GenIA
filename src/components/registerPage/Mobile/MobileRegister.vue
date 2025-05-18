@@ -4,6 +4,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user';
+import { notify } from '@/utils/notifications'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -16,7 +17,7 @@ const user = ref({
 })
 
 
-const repetirSenha = ref('pedroguilherme')
+const repetirSenha = ref('')
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
@@ -42,12 +43,12 @@ async function validarForm() {
     try {
       const response = await userStore.registerUser(user.value);
       if (response) {
-        alert('Registrado com sucesso! Redirecionando para a tela de login.');
+        notify.success('Registrado com sucesso! Redirecionando para a tela de login.');
         router.push('/login');
       }
     } catch (error) {
       console.error('Erro no registro:', error);
-      alert('Erro ao registrar o usuário. Por favor, tente novamente.');
+      notify.error('Erro ao registrar o usuário. Por favor, tente novamente.');
     }
   }
 }
@@ -140,7 +141,7 @@ const repetirSenhaVisivel = ref(false)
             A inteligência artificial que lê seu currículo... e te julga sem piedade.
           </div>
           <div class="msn2">
-            Ela vai além da análise técnica: satiriza suas experiências, destaca suas “conquistas”
+            Ela vai além da análise técnica: satiriza suas experiências, destaca suas "conquistas"
             com ironia, e te coloca num ranking implacável. Nada escapa — nem aquele curso de 4h que
             você colocou como formação.
           </div>

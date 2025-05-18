@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+
+</script>
 
 <template>
   <main>
@@ -22,7 +24,9 @@
         <li>✅ Sugestões para currículo</li>
         <li>✅ Funcionalidades exclusivas</li>
       </ul>
-      <button class="green-btn">Tornar-se patrão</button>
+      <router-link to="/pagamento" class="router-link">
+        <button class="green-btn">Tornar-se patrão</button>
+      </router-link>
     </div>
   </main>
 </template>
@@ -30,6 +34,15 @@
 <style scoped>
 button{
   margin-top: 4vh;
+  width: 100%;
+  padding: 1vh 2vw;
+}
+
+.router-link {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  z-index: 2;
 }
 
 img {
@@ -52,6 +65,10 @@ img {
   position: relative;
   list-style-type: none;
   z-index: 2;
+}
+
+.green-btn:not([disabled]){
+  cursor: pointer;
 }
 
 .plan-icon {

@@ -4,6 +4,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user';
+import { notify } from '@/utils/notifications'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -18,7 +19,17 @@ const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-async function handleLogin() {
+const validateForm = () => {
+  if (!user.value.email || !user.value.password) {
+    notify.warning('Por favor, preencha todos os campos.')
+    return false
+  }
+  return true
+}
+
+const handleSubmit = async () => {
+  if (!validateForm()) return
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   erroEmail.value = ''
   erroSenha.value = ''
@@ -30,18 +41,14 @@ async function handleLogin() {
     erroEmail.value = 'Formato de email inválido.'
     return
   }
+
   try {
     console.log("Função de login foi chamada");
-    const response = await userStore.loginUser(user.value)
-
-    if (response) {
-      alert('Login efetuado com sucesso. Redirecionando para a página de home.')
-    }
+    await userStore.loginUser(user.value)
     router.push('/dashboard')
-
   } catch (error) {
     console.error('Erro no login:', error)
-    alert('Erro no login. Verifique suas credenciais.')
+    notify.error('Erro no login. Verifique suas credenciais.')
   }
 }
 
@@ -61,7 +68,7 @@ const senhaVisivel = ref(false)
         <h1>Login</h1>
         <p class="subtitle">Tá aqui de volta pra que?! Entra logo</p>
 
-        <form class="form" @submit.prevent="handleLogin()">
+        <form class="form" @submit.prevent="handleSubmit()">
           <label for="email">email:</label>
           <input
             id="email"
@@ -113,7 +120,7 @@ const senhaVisivel = ref(false)
             A inteligência artificial que lê seu currículo... e te julga sem piedade.
           </div>
           <div class="msn2">
-            Ela vai além da análise técnica: satiriza suas experiências, destaca suas “conquistas”
+            Ela vai além da análise técnica: satiriza suas experiências, destaca suas "conquistas"
             com ironia, e te coloca num ranking implacável. Nada escapa — nem aquele curso de 4h que
             você colocou como formação.
           </div>
