@@ -29,7 +29,6 @@ async function fetchResume() {
   error.value = null
   try {
     const response = await resumeStore.getOneResumeAnalyze(id)
-    console.log(response.resume)
     if (response) {
       pontuacao.value = response.resume.analyses[0].score || 0
       resumo.value = response.resume.analyses[0].funny_comment || 'Nenhum resumo encontrado.'

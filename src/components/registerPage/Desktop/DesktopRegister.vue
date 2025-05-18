@@ -22,8 +22,7 @@ const erroSenha = ref('')
 const erroEmail = ref('')
 
 const validateForm = () => {
-  console.log('User values', user.value)
-  console.log('Repetir senha:', repetirSenha.value)
+
 
   if (!user.value.username || !user.value.email || !user.value.password || !repetirSenha.value) {
     notify.warning('Por favor, preencha todos os campos obrigatórios.')

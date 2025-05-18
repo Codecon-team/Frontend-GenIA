@@ -20,21 +20,12 @@ const erroSenha = ref('')
 const erroEmail = ref('')
 
 const validateForm = () => {
-  console.log('Valores do formulário:', {
-    email: user.value.email,
-    password: user.value.password,
-    emailLength: user.value.email?.length,
-    passwordLength: user.value.password?.length
-  })
+
 
   // Verifica se os campos existem e não estão vazios após trim
   const emailValid = user.value.email?.trim()
   const passwordValid = user.value.password?.trim()
 
-  console.log('Validação dos campos:', {
-    emailValid: !!emailValid,
-    passwordValid: !!passwordValid
-  })
 
   if (!emailValid || !passwordValid) {
     const camposFaltantes = []
@@ -49,10 +40,8 @@ const validateForm = () => {
 }
 
 const handleSubmit = async () => {
-  console.log('Iniciando submit do formulário')
 
   if (!validateForm()) {
-    console.log('Validação falhou')
     return
   }
 
@@ -66,10 +55,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    console.log("Função de login foi chamada com:", {
-      email: user.value.email,
-      password: user.value.password?.length // Não logamos a senha real por segurança
-    });
+
     await userStore.loginUser(user.value)
     router.push('/dashboard')
   } catch (error) {

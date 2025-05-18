@@ -14,7 +14,6 @@ const paymentComputed = computed(() => {
   return payment.value
 })
 
-console.log(`paymentComputed`, paymentComputed)
 
 const generatePayment = async () => {
   if (loading.value) return
@@ -22,26 +21,21 @@ const generatePayment = async () => {
   loading.value = true
   error.value = null
   clearInterval(timer.value)
-  console.log('Iniciando geração de pagamento')
 
   try {
     const response = await paymentStore.createPayment()
     payment.value = response
-    console.log('Resposta do pagamento:', response)
-    console.log(`Resposta com paymet`, payment.value)
-    console.log(`Resposta com Teste`, paymentComputed)
+
 
     if (!response) {
       throw new Error('Resposta vazia do servidor')
     }
 
     startExpirationTimer(new Date(response.date_of_expiration))
-    console.log('Timer iniciado')
   } catch (err) {
     console.error('Erro detalhado:', err)
     error.value = 'Erro ao gerar pagamento. Tente novamente.'
   } finally {
-    console.log('Finalizando loading')
     loading.value = false
   }
 }

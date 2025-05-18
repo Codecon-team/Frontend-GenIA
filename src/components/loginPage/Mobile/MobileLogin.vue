@@ -43,7 +43,6 @@ const handleSubmit = async () => {
   }
 
   try {
-    console.log("Função de login foi chamada");
     await userStore.loginUser(user.value)
     router.push('/dashboard')
   } catch (error) {
