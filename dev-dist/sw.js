@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d66619b (FEAT: criação tela pagamento)
 /**
  * Copyright 2018 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,18 +22,7 @@ if (!self.define) {
   const singleRequire = (uri, parentUri) => {
     uri = new URL(uri + ".js", parentUri).href;
     return registry[uri] || (
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
       
->>>>>>> d66619b (FEAT: criação tela pagamento)
-=======
-
->>>>>>> 0e831f1 (feat: adicionando sistema de loadingpage)
-=======
-      
->>>>>>> 0174713 (refactor: refatorando codigo)
         new Promise(resolve => {
           if ("document" in self) {
             const script = document.createElement("script");
@@ -97,38 +82,7 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "revision": "3ca0b8505b4bec776b69afdba2768812"
   }, {
     "url": "index.html",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "revision": "0.itiu2bvr2f"
-=======
-    "revision": "0.a7pv010q4dg"
->>>>>>> bdd3bf8 (FEAT: implement user authentication with login and registration functionality)
-=======
-    "revision": "0.oip9nc40h6g"
->>>>>>> df7a9c6 (FEAT: update dashboard route to include user ID and enhance DashboardView with resume fetching logic)
-=======
-    "revision": "0.48ljvalpp7o"
->>>>>>> d66619b (FEAT: criação tela pagamento)
-=======
-    "revision": "0.48ljvalpp7o"
-=======
-    "revision": "0.itiu2bvr2f"
->>>>>>> bdf94b4 (CHORE: atualização main css)
->>>>>>> 205e636 (CHORE: atualização main css)
-=======
-    "revision": "0.itiu2bvr2f"
->>>>>>> 9f4271d (style: deixando responsivo as telas)
-=======
-    "revision": "0.5bpq3jdfj18"
->>>>>>> 0174713 (refactor: refatorando codigo)
-=======
-    "revision": "0.ttfa4n80avo"
->>>>>>> 161a3fd (feat: ajustando frontend)
+    "revision": "0.ia52c8pob2"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
@@ -136,8 +90,3 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
   }));
 
 }));
-<<<<<<< HEAD
-=======
->>>>>>> 8ecf063 (feat: integrate user authentication with API and state management)
-=======
->>>>>>> d66619b (FEAT: criação tela pagamento)
