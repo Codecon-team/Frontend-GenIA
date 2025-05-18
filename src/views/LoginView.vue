@@ -3,32 +3,53 @@ import { ref } from 'vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user';
 
+const userStore = useUserStore()
 const router = useRouter()
 const path = mdiArrowLeft
 
-const email = ref('')
-const senha = ref('')
+const user = ref({
+    email: "limateste@gabigol.com",
+    password: "pedroguilherme"
+})
+
+
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-function validarForm() {
+async function handleLogin() {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   erroEmail.value = ''
   erroSenha.value = ''
 
-  if (!email.value) {
+  if (!user.value.email) {
     erroEmail.value = 'O email é obrigatório.'
-  } else if (!emailRegex.test(email.value)) {
+    return
+  } else if (!emailRegex.test(user.value.email)) {
     erroEmail.value = 'Formato de email inválido.'
+    return
   }
-  if (!erroEmail.value && !erroSenha.value) {
-    alert('Registrado com sucesso!')
+
+  // Se passou pelas validações, tenta logar
+  try {
+    console.log("Função de login foi chamada");
+    const response = await userStore.loginUser(user.value)
+
+    if (response) {
+      alert('Login efetuado com sucesso. Redirecionando para a página de home.')
+    }
+    router.push('/dashboard')
+
+  } catch (error) {
+    console.error('Erro no login:', error)
+    alert('Erro no login. Verifique suas credenciais.')
   }
 }
 
 const senhaVisivel = ref(false)
+
 </script>
 
 <template>
@@ -44,11 +65,11 @@ const senhaVisivel = ref(false)
         <h1>Login</h1>
         <p class="subtitle">Tá aqui de volta pra que?! Entra logo</p>
 
-        <form class="form" @submit.prevent="validarForm">
+        <form class="form" @submit.prevent="handleLogin()">
           <label for="email">email:</label>
           <input
             id="email"
-            v-model="email"
+            v-model="user.email"
             type="email"
             placeholder="não venha por jorginho123@hotmail.com"
           />
@@ -57,7 +78,7 @@ const senhaVisivel = ref(false)
           <div class="senha-wrapper">
             <input
               id="senha"
-              v-model="senha"
+              v-model="user.password"
               class="input-senha"
               :type="senhaVisivel ? 'text' : 'password'"
               placeholder="#@%&@&~$"
@@ -65,7 +86,7 @@ const senhaVisivel = ref(false)
             <button type="button" class="senha-toggle" @click="senhaVisivel = !senhaVisivel">
               {{ senhaVisivel ? '🙈' : '👁️' }}
             </button>
-            <button type="button" class="senha-reset" @click="senha = ''">↺</button>
+            <button type="button" class="senha-reset" @click="user.password = ''">↺</button>
           </div>
           <div class="toggle-row">
             <label class="switch">
@@ -75,8 +96,8 @@ const senhaVisivel = ref(false)
             <span>Não me esquece</span>
           </div>
 
-          <button type="submit" class="register-btn">Registrar</button>
-          <button class="login-btn" @click="router.push('/login')">Já esteve aqui antes?</button>
+          <button type="submit" class="register-btn">Login</button>
+          <button class="login-btn" @click="router.push('/register')">É novo?</button>
         </form>
 
         <div class="social-buttons">
