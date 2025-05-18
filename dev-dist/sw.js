@@ -28,12 +28,16 @@ if (!self.define) {
     return registry[uri] || (
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       
 >>>>>>> d66619b (FEAT: criação tela pagamento)
 =======
 
 >>>>>>> 0e831f1 (feat: adicionando sistema de loadingpage)
+=======
+      
+>>>>>>> 0174713 (refactor: refatorando codigo)
         new Promise(resolve => {
           if ("document" in self) {
             const script = document.createElement("script");
@@ -46,7 +50,7 @@ if (!self.define) {
             resolve();
           }
         })
-
+      
       .then(() => {
         let promise = registry[uri];
         if (!promise) {
@@ -98,6 +102,7 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "revision": "0.itiu2bvr2f"
 =======
     "revision": "0.a7pv010q4dg"
@@ -117,6 +122,9 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
 =======
     "revision": "0.itiu2bvr2f"
 >>>>>>> 9f4271d (style: deixando responsivo as telas)
+=======
+    "revision": "0.5bpq3jdfj18"
+>>>>>>> 0174713 (refactor: refatorando codigo)
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
