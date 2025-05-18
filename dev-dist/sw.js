@@ -27,9 +27,13 @@ if (!self.define) {
     uri = new URL(uri + ".js", parentUri).href;
     return registry[uri] || (
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       
 >>>>>>> d66619b (FEAT: criação tela pagamento)
+=======
+
+>>>>>>> 0e831f1 (feat: adicionando sistema de loadingpage)
         new Promise(resolve => {
           if ("document" in self) {
             const script = document.createElement("script");
@@ -42,7 +46,7 @@ if (!self.define) {
             resolve();
           }
         })
-      
+
       .then(() => {
         let promise = registry[uri];
         if (!promise) {
