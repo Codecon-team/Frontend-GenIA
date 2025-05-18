@@ -9,9 +9,9 @@ export const usePaymentStore = defineStore('payment', () => {
 
   const payments = computed(() => state.payments)
 
-  const createPayment = async (data) => {
+  const createPayment = async () => {
     try {
-      const response = await PaymentService.createPayment(data)
+      const response = await PaymentService.createPayment()
       state.payments = response.data
       return response
     } catch (error) {

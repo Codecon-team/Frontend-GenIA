@@ -1,15 +1,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import { usePaymentStore } from '@/stores/payment'
 
+const paymentStore = usePaymentStore()
 const qrCodeUrl = ref(null)
 const loading = ref(true)
 
+
 const gerarQRCode = async () => {
   loading.value = true
+  qrCodeUrl.value = null
+
   try {
-    const response = await axios.post('/api/pagamento') // Altere conforme seu endpoint
-    qrCodeUrl.value = response.data.qrCodeUrl
+    const response = await paymentStore.createPayment()
+
+    qrCodeUrl.value = `data:image/png;base64,${response.data.point_of_interaction.transaction_data.qr_code_base64}`
   } catch (error) {
     console.error('Erro ao gerar QR Code:', error)
     qrCodeUrl.value = null
@@ -19,9 +24,9 @@ const gerarQRCode = async () => {
 }
 
 onMounted(() => {
-  gerarQRCode()
 })
 </script>
+
 <template>
   <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
     <div class="bg-white shadow-2xl rounded-2xl p-6 w-full max-w-md text-center">

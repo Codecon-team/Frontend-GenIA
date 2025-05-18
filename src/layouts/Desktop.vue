@@ -1,12 +1,13 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { RouterView } from 'vue-router'
-import NavBarComponent from '@/components/NavBarComponent.vue';
+import DesktopNav from '@/components/navBar/Desktop/DesktopNav.vue';
 </script>
 <template>
   <span class="bg-blue-circle" />
   <span class="bg-purp-circle" />
   <div class="glass-bg">
-    <NavBarComponent/>
+    <DesktopNav/>
     <RouterView />
   </div>
 </template>
