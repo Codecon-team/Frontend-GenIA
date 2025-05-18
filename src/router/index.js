@@ -24,9 +24,14 @@ const router = createRouter({
           component: () => import('@/views/LoginView.vue'),
         },
         {
-          path: '/dashboard/:id',
+          path: '/dashboard/',
           name: 'dashboard',
           component: () => import('@/views/DashboardView.vue'),
+        },
+        {
+          path: '/resume/:id',
+          name: 'resume',
+          component: () => import('@/views/OnlyCurriculumView.vue'),
         },
         {
           path: '/premium',
