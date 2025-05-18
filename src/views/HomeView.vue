@@ -51,26 +51,27 @@ img {
   align-items: center;
   gap: 3vh;
   padding: 3vh 0;
-
-  & p {
-    width: 15vw;
-    text-align: center;
-  }
-
-  & p:last-of-type {
-    font-size: 18px;
-    color: #60696c;
-    font-weight: 600;
-  }
-
-  & label {
-    width: fit-content;
-
-    & input {
-      display: none;
-    }
-  }
 }
+
+.upload-container p {
+  width: 15vw;
+  text-align: center;
+}
+
+.upload-container p:last-of-type {
+  font-size: 18px;
+  color: #60696c;
+  font-weight: 600;
+}
+
+.upload-container label {
+  width: fit-content;
+}
+
+.upload-container label input {
+  display: none;
+}
+
 
 main {
   padding: 4vw 10vh 0 8vw;

@@ -45,11 +45,12 @@ const pontuacao = 90;
   height: 63vh;
   padding: 5vh 3vw;
 
-  & p{
+  
+}
+p{
     font-size: 20px;
     text-align: justify;
   }
-}
 
 .title-container {
   border-bottom: #000000 1px solid;
@@ -97,27 +98,29 @@ main {
   display: flex;
   padding-top: 8vh;
   justify-content: space-around;
-
-  & span {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-
-    & .glass-container {
-      display: flex;
-      flex-direction: column;
-      width: 20vw;
-      background-color: #d9d9d959;
-
-      & p {
-        font-size: 20px;
-        font-weight: 700;
-      }
-    }
-    & .glass-container:first-of-type {
-      height: 100%;
-      gap: 1vh;
-    }
-  }
 }
+
+main span {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+main span .glass-container {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  background-color: #d9d9d959;
+}
+
+main span .glass-container p {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+main span .glass-container:first-of-type {
+  height: 100%;
+  gap: 1vh;
+}
+
 </style>
