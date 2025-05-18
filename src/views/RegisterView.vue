@@ -1,9 +1,9 @@
 <script setup>
-import { DefaultHome } from '@/components';
+import { DefaultRegister } from '@/components'
 </script>
 
 <template>
-  <DefaultHome/>
+  <DefaultRegister/>
 </template>
 
 <style scoped>

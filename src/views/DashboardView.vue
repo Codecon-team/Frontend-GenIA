@@ -1,9 +1,9 @@
 <script setup>
-import { DefaultHome } from '@/components';
+import { DefaultDashboard } from '@/components'
 </script>
 
 <template>
-  <DefaultHome/>
+  <DefaultDashboard/>
 </template>
 
 <style scoped>

@@ -1,9 +1,9 @@
 <script setup>
-import { DefaultHome } from '@/components';
+import { DefaultPayment } from '@/components'
 </script>
 
 <template>
-  <DefaultHome/>
+  <DefaultPayment/>
 </template>
 
 <style scoped>
