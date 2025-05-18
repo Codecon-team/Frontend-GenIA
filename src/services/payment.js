@@ -1,10 +1,9 @@
-import api from '@/plugins/api'
-
+import axios from "axios"
 class PaymentService {
-  async createPayment(data) {
+  async createPayment() {
     try {
-      const response = await api.post('payments/', data)
-      return response.data
+      const response = await axios.post('payments/')
+      return response
     } catch (error) {
       console.log('Error creating payment:', error)
       throw error
@@ -13,7 +12,7 @@ class PaymentService {
 
   async getPayment() {
     try {
-      const response = await api.get('payments/')
+      const response = await axios.get('payments/')
       return response.data
     } catch (error) {
       console.log('getPayment error:', error)
