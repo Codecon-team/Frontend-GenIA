@@ -31,12 +31,13 @@ const router = createRouter({
         {
           path: '/formpix',
           name: 'formpix',
-          component: () => import('@/views/PixView.vue'),
+          component: () => import('@/views/FormPixView.vue'),
         },
         {
           path: '/pagamento',
           name: 'pagamento',
           component: () => import('@/views/PagamentoView.vue'),
+          
         }
       ],
     },
