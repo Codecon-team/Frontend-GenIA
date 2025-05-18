@@ -82,10 +82,14 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
   }, {
     "url": "index.html",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "revision": "0.itiu2bvr2f"
 =======
     "revision": "0.a7pv010q4dg"
 >>>>>>> bdd3bf8 (FEAT: implement user authentication with login and registration functionality)
+=======
+    "revision": "0.oip9nc40h6g"
+>>>>>>> df7a9c6 (FEAT: update dashboard route to include user ID and enhance DashboardView with resume fetching logic)
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
