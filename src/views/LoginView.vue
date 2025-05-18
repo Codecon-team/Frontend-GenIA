@@ -10,7 +10,7 @@ const router = useRouter()
 const path = mdiArrowLeft
 
 const user = ref({
-    email: "limateste@gabigol.com",
+    email: "lima@gabigol.com",
     password: "pedroguilherme"
 })
 
