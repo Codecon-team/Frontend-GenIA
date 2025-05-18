@@ -13,7 +13,7 @@ const router = useRouter()
     </span>
     <span>
     <button class="login-btn" @click="router.push('/login')">Login</button>
-    <button class="green-btn" @click="router.push('/login')">Registre-se</button>
+    <button class="green-btn" @click="router.push('/register')">Registre-se</button>
     </span>
   </nav>
 </template>
@@ -50,7 +50,7 @@ span:last-of-type{
     background-color: transparent;
     border: none;
     outline: none;
-    font-weight: 600;
+    font-weight: 500;
   }
 .green-btn{
   background-color: #1A5D46;
