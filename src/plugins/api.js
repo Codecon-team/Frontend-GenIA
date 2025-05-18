@@ -4,7 +4,7 @@ import { useLoadingStore } from '@/stores/loading'
 export function setupAxios() {
   const loadingStore = useLoadingStore()
 
-  axios.defaults.baseURL = 'http://localhost:3002'
+  axios.defaults.baseURL = 'http://localhost:3002/api/'
 
   axios.interceptors.request.use(config => {
     loadingStore.show()

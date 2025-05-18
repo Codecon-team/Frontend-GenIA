@@ -10,8 +10,8 @@ const router = useRouter()
 const path = mdiArrowLeft
 
 const user = ref({
-    email: "limateste@gabigol.com",
-    password: "pedroguilherme"
+  email: '',
+  password: ''
 })
 
 const lembrar = ref(false)
