@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * Copyright 2018 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -97,3 +98,5 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
   }));
 
 }));
+=======
+>>>>>>> 8ecf063 (feat: integrate user authentication with API and state management)
