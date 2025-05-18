@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToPayment = () => {
+  router.push('/pagamento')
+}
+</script>
 
 <template>
   <main>
@@ -22,7 +30,7 @@
         <li>✅ Sugestões para currículo</li>
         <li>✅ Funcionalidades exclusivas</li>
       </ul>
-      <button class="green-btn">Tornar-se patrão</button>
+      <button class="green-btn" @click="goToPayment">Tornar-se patrão</button>
     </div>
   </main>
 </template>

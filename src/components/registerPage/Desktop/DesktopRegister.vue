@@ -4,6 +4,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user';
+import { notify } from '@/utils/notifications'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -16,41 +17,35 @@ const user = ref({
 })
 
 
-const repetirSenha = ref('pedroguilherme')
+const repetirSenha = ref('')
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-async function validarForm() {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  erroEmail.value = ''
-  erroSenha.value = ''
-
-  if (!user.value.email) {
-    erroEmail.value = 'O email é obrigatório.'
-  } else if (!emailRegex.test(user.value.email)) {
-    erroEmail.value = 'Formato de email inválido.'
+const validateForm = () => {
+  if (!user.value.username || !user.value.email || !user.value.password || !repetirSenha.value) {
+    notify.warning('Por favor, preencha todos os campos obrigatórios.')
+    return false
   }
-
-  if (!user.value.password) {
-    erroSenha.value = 'A senha é obrigatória.'
-  } else if (user.value.password !== repetirSenha.value) {
-    erroSenha.value = 'As senhas não coincidem!'
+  if (user.value.password !== repetirSenha.value) {
+    notify.warning('As senhas não coincidem.')
+    return false
   }
+  if (user.value.password.length < 6) {
+    notify.warning('A senha deve ter pelo menos 6 caracteres.')
+    return false
+  }
+  return true
+}
 
-  if (!erroEmail.value && !erroSenha.value) {
-    // Se a validação do formulário passou, tenta registrar o usuário
-    try {
-      const response = await userStore.registerUser(user.value);
-      if (response) {
-        alert('Registrado com sucesso! Redirecionando para a tela de login.');
-        router.push('/login');
-      }
-    } catch (error) {
-      console.error('Erro no registro:', error);
-      alert('Erro ao registrar o usuário. Por favor, tente novamente.');
-      // Aqui você pode adicionar lógica para exibir mensagens de erro específicas do backend, se necessário.
-    }
+const handleSubmit = async () => {
+  if (!validateForm()) return
+
+  try {
+    await userStore.registerUser(user.value)
+    router.push('/login')
+  } catch (error) {
+    console.error('Erro no registro:', error)
   }
 }
 
@@ -71,7 +66,7 @@ const repetirSenhaVisivel = ref(false)
         <h1>Registro</h1>
         <p class="subtitle">Não que eu ligue, mas põe teus dados aí:</p>
 
-        <form class="form" @submit.prevent="validarForm">
+        <form class="form" @submit.prevent="handleSubmit">
           <label for="email">email:</label>
           <input
             id="email"
@@ -93,7 +88,7 @@ const repetirSenhaVisivel = ref(false)
             <button type="button" class="senha-toggle" @click="senhaVisivel = !senhaVisivel">
               {{ senhaVisivel ? '🙈' : '👁️' }}
             </button>
-            <button type="button" class="senha-reset" @click="senha = ''">↺</button>
+            <button type="button" class="senha-reset" @click="user.password = ''">↺</button>
           </div>
 
           <label for="repetir">repetir senha:</label>
@@ -142,7 +137,7 @@ const repetirSenhaVisivel = ref(false)
             A inteligência artificial que lê seu currículo... e te julga sem piedade.
           </div>
           <div class="msn2">
-            Ela vai além da análise técnica: satiriza suas experiências, destaca suas “conquistas”
+            Ela vai além da análise técnica: satiriza suas experiências, destaca suas "conquistas"
             com ironia, e te coloca num ranking implacável. Nada escapa — nem aquele curso de 4h que
             você colocou como formação.
           </div>
