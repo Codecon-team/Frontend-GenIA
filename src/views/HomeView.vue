@@ -22,7 +22,7 @@
         </div>
       </span>
       <span class="glass">
-        <img src="../../public/home-image.png" alt="" />
+        <img src="/home-image.png" alt="" />
       </span>
     </div>
   </main>
