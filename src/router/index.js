@@ -34,11 +34,6 @@ const router = createRouter({
           component: () => import('@/views/PremiumView.vue'),
         },
         {
-          path: '/formpix',
-          name: 'formpix',
-          component: () => import('@/views/FormPixView.vue'),
-        },
-        {
           path: '/pagamento',
           name: 'pagamento',
           component: () => import('@/views/PagamentoView.vue'),

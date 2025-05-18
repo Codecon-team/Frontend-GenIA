@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d66619b (FEAT: criação tela pagamento)
 /**
  * Copyright 2018 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +26,10 @@ if (!self.define) {
   const singleRequire = (uri, parentUri) => {
     uri = new URL(uri + ".js", parentUri).href;
     return registry[uri] || (
+<<<<<<< HEAD
+=======
+      
+>>>>>>> d66619b (FEAT: criação tela pagamento)
         new Promise(resolve => {
           if ("document" in self) {
             const script = document.createElement("script");
@@ -84,6 +91,7 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "url": "index.html",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "revision": "0.itiu2bvr2f"
 =======
     "revision": "0.a7pv010q4dg"
@@ -91,6 +99,9 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
 =======
     "revision": "0.oip9nc40h6g"
 >>>>>>> df7a9c6 (FEAT: update dashboard route to include user ID and enhance DashboardView with resume fetching logic)
+=======
+    "revision": "0.48ljvalpp7o"
+>>>>>>> d66619b (FEAT: criação tela pagamento)
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
@@ -98,5 +109,8 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
   }));
 
 }));
+<<<<<<< HEAD
 =======
 >>>>>>> 8ecf063 (feat: integrate user authentication with API and state management)
+=======
+>>>>>>> d66619b (FEAT: criação tela pagamento)
