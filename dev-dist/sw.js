@@ -35,7 +35,6 @@ if (!self.define) {
             resolve();
           }
         })
-
       .then(() => {
         let promise = registry[uri];
         if (!promise) {
