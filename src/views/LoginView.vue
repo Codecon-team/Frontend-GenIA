@@ -116,7 +116,7 @@ const repetirSenhaVisivel = ref(false)
 
       <div class="side-box">
         <div class="overlay-box">
-          <img src="/public/logo-reverse.png" alt="logo reverse" />
+          <img src="/logo-reverse.png" alt="logo reverse" />
           <p>se tu quer feeedback fofo, procure outra IA.</p>
           <hr />
           <div class="msn1">
