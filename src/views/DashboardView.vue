@@ -1,123 +1,215 @@
 <script setup>
-const pontuacao = 90;
+const premium = true;
 </script>
 
 <template>
   <main>
-    <span>
-      <div class="glass-container">
-        <p>💥 [Ponto negativo]</p>
-        <p>🤏 [Ponto positivo]</p>
-      </div>
-      <div class="glass-container">
-        <div class="progress-text">
-          <span>
-            <p v-if="pontuacao < 33">Bucha 💀</p>
-            <p v-else-if="pontuacao < 66">Dá pro gasto 🤏</p>
-            <p v-else-if="pontuacao < 90">Razoável 🤙</p>
-            <p v-else>Diamante do gueto 💎</p>
-          </span>
-          <span> {{ pontuacao }}%</span>
+    <div class="user">
+      <div class="info-user">
+        <div class="glass-container">
+          <h1>[Nome da pessoa]</h1>
+          <p>Apareceu para incomodar em [data]</p>
+          <p>Mudou de identidade em: [data]</p>
         </div>
-        <progress :value="pontuacao" max="100" />
+        <div class="glass-container">
+          <h1>classe: [classe]</h1>
+          <p>Assinatura vai até [data]</p>
+          <p>Ultimo pagamento em [data]</p>
+        </div>
       </div>
-      <label class="green-btn">
-        Upload
-        <input type="file" id="file" name="file" />
-      </label>
-    </span>
-    <div class="info glass-container">
-      <span class="title-container">
-        <h1>[Nome do individuo]</h1>
-        <h2>[Área do individuo]</h2>
-      </span>
-      <h3>Resumo:</h3>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla nesciunt fuga enim, doloribus illum quod porro, natus corporis harum debitis vel assumenda iure consequatur dignissimos. Quidem, quasi atque. Quae, laborum.
-      Architecto possimus, mollitia delectus rerum consequuntur consectetur blanditiis esse accusantium totam, temporibus quaerat id exercitationem cupiditate! Itaque, mollitia unde error sunt deleniti, officiis illum architecto laborum vitae, aspernatur pariatur laudantium?
-      Voluptatum neque ex ducimus est! Ullam aperiam a quos totam nesciunt, mollitia in magnam quae culpa consequatur harum quasi accusamus, iure excepturi, corporis nostrum sint quisquam esse natus facere asperiores!</p>
+      <div class="bottom-container">
+        <div class="user-form glass-container">
+          <span class="inputs-container">
+            <label>
+              <p>Primeiro Nome</p>
+              <input type="text" />
+            </label>
+            <label>
+              <p>Segundo nome</p>
+              <input type="text" />
+            </label>
+            <label>
+              <p>Email</p>
+              <input type="text" />
+            </label>
+            <label>
+              <p>CPF</p>
+              <input type="text" />
+            </label>
+          </span>
+          <button class="green-btn">Salvar</button>
+        </div>
+        <div class="upload-cv">
+          <p>Faça o Upload do Arquivo aqui mano, relaxa que tá seguro!</p>
+          <label class="green-btn"
+            >Upload CV<input type="file" id="file" name="file"
+          /></label>
+        </div>
+      </div>
+    </div>
+    <div class="curriculums-container">
+      <h2>Histórico</h2>
+      <div class="curriculum-card">
+        <img
+          src="https://www.dicasdecurriculo.com.br/wp-content/uploads/2024/03/modelo-de-curriculo-word-simples.jpg"
+          alt=""
+        />
+        <span>
+          <p>[data curriculo]</p>
+          <p>[nota curriculo]</p>
+        </span>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-.info {
-  width: 64vw;
-  height: 63vh;
-  padding: 5vh 3vw;
-
-  & p{
-    font-size: 20px;
-    text-align: justify;
-  }
-}
-
-.title-container {
-  border-bottom: #000000 1px solid;
-  padding-bottom: 3vh;
-  margin-bottom: 3vh;
-}
-
-progress {
-  margin-top: 0.5vw;
-  border-radius: 7px;
-  width: 100%;
-}
-
-progress::-webkit-progress-bar {
-  background-color: #ffffff;
-  border-radius: 7px;
-}
-
-progress::-webkit-progress-value {
-  background-color: #1a5d46;
-  border-radius: 7px 0 0 7px;
-}
-
-.progress-text {
+.upload-cv{
   display: flex;
-  justify-content: space-between;
-  font-size: 20px;
-  font-weight: 700;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh 1vw;
+  width: 20%;
+  height: 20vh;
+  border-radius: 10px;
+  background-color: #ffffff5e;
+  border: dashed #1a5d46 1px;
+  gap: 2vh;
+  text-align: center  ;
 }
 
-label {
-  text-align: center;
+.upload-cv p {
+  font-size: 2vh;
 }
 
-input {
+.upload-cv > label{
+  font-size: 2vh;
+}
+
+.upload-cv > label  input {
   display: none;
 }
 
-main > div {
-  background-color: #d9d9d959;
-  padding: 3vh 2vw;
+.bottom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottom-container > label {
+  width: 20%;
+  text-align: center;
+  height: fit-content;
+}
+
+.curriculum-card {
+  padding: 2vh 0;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5vw;
+}
+.curriculum-card img {
+  width: 2vw;
+  box-shadow: 6px 6px 10px rgba(128, 128, 128, 0.346);
+}
+
+h2 {
+  margin-bottom: 3vh;
+}
+
+.curriculums-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  width: 23vw;
+  max-height: 70vh;
+  padding: 3vh 0;
+  overflow-y: scroll;
+  box-shadow: 6px 6px 15px rgba(128, 128, 128, 0.346);
+}
+
+.inputs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vw;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4vh;
+  border-radius: 10px;
+  max-width: 60%;
+  box-shadow: 6px 6px 15px rgba(128, 128, 128, 0.346);
+  padding: 4vh 2vw;
+}
+
+.user-form button {
+  margin-top: 3vh;
+}
+
+label p {
+  font-size: 2vh;
+}
+
+.user-form input {
+  padding: 0.5vh 0.4vw;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.user-form input:enabled {
+  border: #1a5d46 1px solid;
+}
+
+.user {
+  width: 55vw;
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+}
+
+.info-user > div {
+  position: inherit;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 4vh 0;
+  border-radius: 10px;
+  box-shadow: 6px 6px 15px rgba(128, 128, 128, 0.346);
+}
+
+.info-user > div > p {
+  font-size: 2vh;
+  margin-bottom: 2vh;
+}
+
+h1 {
+  z-index: 3;
+  font-size: 3vh;
+  margin-bottom: 3vh;
 }
 
 main {
+  padding: 8vh 8vw;
   display: flex;
-  padding-top: 8vh;
-  justify-content: space-around;
+  justify-content: space-between;
+}
 
-  & span {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-
-    & .glass-container {
-      display: flex;
-      flex-direction: column;
-      width: 20vw;
-      background-color: #d9d9d959;
-
-      & p {
-        font-size: 20px;
-        font-weight: 700;
-      }
-    }
-    & .glass-container:first-of-type {
-      height: 100%;
-      gap: 1vh;
-    }
-  }
+.info-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  height: 25vh;
+  max-width: 100%;
+  gap: 5vw;
 }
 </style>
