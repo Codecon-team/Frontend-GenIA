@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiArrowLeft } from '@mdi/js'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user'
 import { notify } from '@/utils/notifications'
 
 const userStore = useUserStore()
@@ -11,45 +11,45 @@ const router = useRouter()
 const path = mdiArrowLeft
 
 const user = ref({
-    username: "",
-    email: "",
-    password: ""
+  username: '',
+  email: '',
+  password: '',
 })
-
 
 const repetirSenha = ref('')
 const lembrar = ref(false)
 const erroSenha = ref('')
 const erroEmail = ref('')
 
-async function validarForm() {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  erroEmail.value = ''
-  erroSenha.value = ''
+const validateForm = () => {
 
-  if (!user.value.email) {
-    erroEmail.value = 'O email é obrigatório.'
-  } else if (!emailRegex.test(user.value.email)) {
-    erroEmail.value = 'Formato de email inválido.'
+
+  if (!user.value.username || !user.value.email || !user.value.password || !repetirSenha.value) {
+    notify.warning('Por favor, preencha todos os campos obrigatórios.')
+    return false
   }
 
-  if (!user.value.password) {
-    erroSenha.value = 'A senha é obrigatória.'
-  } else if (user.value.password !== repetirSenha.value) {
-    erroSenha.value = 'As senhas não coincidem!'
+  if (user.value.password !== repetirSenha.value) {
+    notify.warning('As senhas não coincidem.')
+    return false
   }
 
-  if (!erroEmail.value && !erroSenha.value) {
-    try {
-      const response = await userStore.registerUser(user.value);
-      if (response) {
-        notify.success('Registrado com sucesso! Redirecionando para a tela de login.');
-        router.push('/login');
-      }
-    } catch (error) {
-      console.error('Erro no registro:', error);
-      notify.error('Erro ao registrar o usuário. Por favor, tente novamente.');
-    }
+  if (user.value.password.length < 6) {
+    notify.warning('A senha deve ter pelo menos 6 caracteres.')
+    return false
+  }
+
+  return true
+}
+
+const handleSubmit = async () => {
+  if (!validateForm()) return
+
+  try {
+    await userStore.registerUser(user.value)
+    router.push('/login')
+  } catch (error) {
+    console.error('Erro no registro:', error)
   }
 }
 
@@ -70,7 +70,14 @@ const repetirSenhaVisivel = ref(false)
         <h1>Registro</h1>
         <p class="subtitle">Não que eu ligue, mas põe teus dados aí:</p>
 
-        <form class="form" @submit.prevent="validarForm">
+        <form class="form" @submit.prevent="handleSubmit">
+          <label for="username">username:</label>
+          <input
+            id="username"
+            v-model="user.username"
+            type="text"
+            placeholder="teu nome de guerra"
+          />
           <label for="email">email:</label>
           <input
             id="email"
@@ -92,7 +99,7 @@ const repetirSenhaVisivel = ref(false)
             <button type="button" class="senha-toggle" @click="senhaVisivel = !senhaVisivel">
               {{ senhaVisivel ? '🙈' : '👁️' }}
             </button>
-            <button type="button" class="senha-reset" @click="senha = ''">↺</button>
+            <button type="button" class="senha-reset" @click="user.password = ''">↺</button>
           </div>
 
           <label for="repetir">repetir senha:</label>
@@ -104,7 +111,11 @@ const repetirSenhaVisivel = ref(false)
               :type="repetirSenhaVisivel ? 'text' : 'password'"
               placeholder="digita de novo aí"
             />
-            <button type="button" class="senha-toggle" @click="repetirSenhaVisivel = !repetirSenhaVisivel">
+            <button
+              type="button"
+              class="senha-toggle"
+              @click="repetirSenhaVisivel = !repetirSenhaVisivel"
+            >
               {{ repetirSenhaVisivel ? '🙈' : '👁️' }}
             </button>
             <button type="button" class="senha-reset" @click="repetirSenha = ''">↺</button>
